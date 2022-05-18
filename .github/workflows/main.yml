@@ -5,7 +5,10 @@ jobs:
     name: Hello Workflow Action
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: ls
+        run: ls -lisha ./.github/actions/hello
       - uses: ./.github/actions/hello
         with:
           MY_NAME: "Bob"
