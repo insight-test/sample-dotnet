@@ -1,0 +1,11 @@
+name: Hello Workflow
+on: push
+jobs:
+  build:
+    name: Hello Workflow Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/hello
+        with:
+          MY_NAME: "Bob"
