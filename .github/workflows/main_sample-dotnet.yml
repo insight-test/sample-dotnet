@@ -14,7 +14,7 @@ jobs:
     runs-on: windows-latest
     defaults:
       run:
-        working-directory: ./sample-dotnet
+        working-directory: ./src
     
     steps:
       - uses: actions/checkout@v2
