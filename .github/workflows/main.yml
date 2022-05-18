@@ -7,8 +7,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: ls
-        run: ls -lisha ./.github/actions/hello
+
       - uses: ./.github/actions/hello
         with:
           MY_NAME: "Bob"
