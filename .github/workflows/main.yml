@@ -22,6 +22,7 @@ jobs:
         uses: ./.github/actions/hello
         with:
           MOCK_STEP_NAME: "Build Step 13"
+          
   build-fe:
     name: Build FrontEnd
     runs-on: ubuntu-latest
@@ -43,9 +44,37 @@ jobs:
         uses: ./.github/actions/hello
         with:
           MOCK_STEP_NAME: "Build Step 13"
-  test-api:
-    name: Test API
+          
+  deploy-api-dev:
+    name: Deploy API
+    runs-on: ubuntu-latest
     needs: build-api
+    environment:
+      name: 'Development'
+      url: api.development.sample-dotnet.local
+      
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: 'Deploy Step 1'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 1"
+
+      - name: 'Deploy Step 2'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 2"
+
+      - name: 'Build Step 3'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 13"
+          
+  test-api-dev:
+    name: Test API
+    needs: deploy-api-dev
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -65,9 +94,37 @@ jobs:
         uses: ./.github/actions/hello
         with:
           MOCK_STEP_NAME: "Test Step 13"
-  test-fe:
-    name: Test Front End
+          
+  deploy-fe-dev:
+    name: Deploy Front End
+    runs-on: ubuntu-latest
     needs: build-fe
+    environment:
+      name: 'Development'
+      url: fe.development.sample-dotnet.local
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: 'Deploy Step 1'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 1"
+
+      - name: 'Deploy Step 2'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 2"
+
+      - name: 'Build Step 3'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 13"
+          
+  test-fe-dev:
+    name: Test Front End
+    needs: deploy-api-dev
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -86,10 +143,11 @@ jobs:
       - name: 'Test Step 3'
         uses: ./.github/actions/hello
         with:
-          MOCK_STEP_NAME: "Test Step 13"
-  test-integration:
+          MOCK_STEP_NAME: "Test Step 3"
+          
+  test-integration-dev:
     name: Integration Test
-    needs: [test-api, test-fe]
+    needs: [test-api-dev, test-fe-dev]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -109,3 +167,134 @@ jobs:
         uses: ./.github/actions/hello
         with:
           MOCK_STEP_NAME: "Test Step 13"
+
+  deploy-api-uat:
+    name: Deploy API UAT
+    runs-on: ubuntu-latest
+    needs: test-integration-dev
+    environment:
+      name: 'UAT'
+      url: api.uat.sample-dotnet.local
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: 'Deploy Step 1'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 1"
+
+      - name: 'Deploy Step 2'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 2"
+
+      - name: 'Build Step 3'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 13"
+  
+  deploy-fe-uat:
+    name: Deploy Front End UAT
+    runs-on: ubuntu-latest
+    needs: test-integration-dev
+    environment:
+      name: 'UAT'
+      url: fe.uat.sample-dotnet.local
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: 'Deploy Step 1'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 1"
+
+      - name: 'Deploy Step 2'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 2"
+
+      - name: 'Build Step 3'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 13"
+  
+  test-integration-uat:
+    name: Integration Test in UAT
+    needs: [deploy-api-uat, deploy-fe-uat]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: 'Test Step 1'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Test Step 1"
+
+      - name: 'Test Step 2'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Test Step 2"
+
+      - name: 'Test Step 3'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Test Step 13"
+        
+  deploy-api-prod:
+    name: Deploy API
+    runs-on: ubuntu-latest
+    needs: test-integration-uat
+    environment:
+      name: 'Production'
+      url: api.sample-dotnet.local
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: 'Deploy Step 1'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 1"
+
+      - name: 'Deploy Step 2'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 2"
+
+      - name: 'Build Step 3'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 13"
+
+  deploy-fe-prod:
+    name: Deploy Front End
+    runs-on: ubuntu-latest
+    needs: test-integration-uat
+    environment:
+      name: 'Production'
+      url: fe.sample-dotnet.local
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: 'Deploy Step 1'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 1"
+
+      - name: 'Deploy Step 2'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 2"
+
+      - name: 'Build Step 3'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Deploy Step 13"
