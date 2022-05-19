@@ -1,8 +1,8 @@
 name: Hello Workflow
 on: push
 jobs:
-  build:
-    name: Hello Workflow Action
+  build-api:
+    name: Build API
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -12,13 +12,100 @@ jobs:
         uses: ./.github/actions/hello
         with:
           MOCK_STEP_NAME: "Build Step 1"
-            
+
       - name: 'Build Step 2'
         uses: ./.github/actions/hello
         with:
           MOCK_STEP_NAME: "Build Step 2"
-          
+
       - name: 'Build Step 3'
         uses: ./.github/actions/hello
         with:
           MOCK_STEP_NAME: "Build Step 13"
+  build-fe:
+    name: Build FrontEnd
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: 'Build Step 1'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Build Step 1"
+
+      - name: 'Build Step 2'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Build Step 2"
+
+      - name: 'Build Step 3'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Build Step 13"
+  test-api:
+    name: Test API
+    needs: build-api
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+  
+      - name: 'Test Step 1'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Test Step 1"
+  
+      - name: 'Test Step 2'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Test Step 2"
+  
+      - name: 'Test Step 3'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Test Step 13"
+  test-fe:
+    name: Test Front End
+    needs: build-fe
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+  
+      - name: 'Test Step 1'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Test Step 1"
+  
+      - name: 'Test Step 2'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Test Step 2"
+  
+      - name: 'Test Step 3'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Test Step 13"
+  test-integration:
+    name: Integration Test
+    needs: [test-api, test-fe]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: 'Test Step 1'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Test Step 1"
+
+      - name: 'Test Step 2'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Test Step 2"
+
+      - name: 'Test Step 3'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Test Step 13"
