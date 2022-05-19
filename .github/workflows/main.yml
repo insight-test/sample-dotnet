@@ -124,7 +124,7 @@ jobs:
           
   test-fe-dev:
     name: Test Front End
-    needs: deploy-api-dev
+    needs: deploy-fe-dev
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
