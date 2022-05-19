@@ -2,7 +2,7 @@ name: "Hello Actions"
 description: "Greet someone"
 
 inputs:
-  MY_NAME:
+  MOCK_STEP_NAME:
     description: "Who to greet"
     required: true
     default: "World"
