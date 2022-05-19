@@ -10,4 +10,4 @@ jobs:
 
       - uses: ./.github/actions/hello
         with:
-          $MOCK_STEP_NAME: "Bob"
+          MOCK_STEP_NAME: "Bob"
