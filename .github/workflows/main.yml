@@ -8,6 +8,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - uses: ./.github/actions/hello
+      - name: 'Build Step 1'
+        uses: ./.github/actions/hello
         with:
-          MOCK_STEP_NAME: "Bob"
+          MOCK_STEP_NAME: "Build Step 1"
+            
+      - name: 'Build Step 2'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Build Step 2"
+          
+      - name: 'Build Step 3'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Build Step 13"
