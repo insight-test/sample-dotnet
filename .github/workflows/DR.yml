@@ -8,10 +8,10 @@ jobs:
   dr:
     name: DR
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion != 'success' }}
+    #if: ${{ github.event.workflow_run.conclusion != 'success' }}
     steps:
      -  run: |
-          echo "::warning:: Starting block.'
+          echo conclusiuon: ${{ github.event.workflow_run.conclusion }}"
       
   dr-api-prod:
     name: DR API
