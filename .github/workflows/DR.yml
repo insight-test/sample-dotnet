@@ -9,13 +9,14 @@ jobs:
     name: DR
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion != 'success' }}
-    run: |
-      echo "::warning:: Starting block.'
+    steps:
+     -  run: |
+          echo "::warning:: Starting block.'
       
   dr-api-prod:
     name: DR API
     runs-on: ubuntu-latest
-    needs: deploy-api-prod
+    needs: dr
     environment:
       name: 'DR'
       url: api.sample-dotnet.local
@@ -42,7 +43,7 @@ jobs:
   dr-fe-prod:
     name: DR Front End
     runs-on: ubuntu-latest
-    needs: deploy-fe-prod
+    needs: dr
     environment:
       name: 'DR'
       url: fe.sample-dotnet.local
