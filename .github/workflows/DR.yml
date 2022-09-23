@@ -20,7 +20,7 @@ jobs:
           echo "- Lets add a bullet point" >> $GITHUB_STEP_SUMMARY
           echo "- Lets add a second bullet point" >> $GITHUB_STEP_SUMMARY
           echo "- How about a third one?" >> $GITHUB_STEP_SUMMARY
-          ech0 "[DR](DR.yml)"
+          echo "[DR](DR.yml)" >> $GITHUB_STEP_SUMMARY
       
   dr-api-prod:
     name: DR API
