@@ -1,6 +1,12 @@
 name: DR
 on:
   workflow_dispatch:
+    inputs:
+      testtext:
+        description: 'Text'
+        required: true
+        default: 'bibble'
+        type: string
   workflow_run:
     workflows: [ Hello Workflow ]
     types: [ completed ]
@@ -21,7 +27,7 @@ jobs:
           echo "- Lets add a second bullet point" >> $GITHUB_STEP_SUMMARY
           echo "- How about a third one?" >> $GITHUB_STEP_SUMMARY
           echo "[DR](../workflows/DR.yml)" >> $GITHUB_STEP_SUMMARY
-          echo "::notice file=app.js,line=1,col=5,endColumn=7::Missing semicolon" >> $GITHUB_WORKFLOW
+          echo "text input $TESTTEXT" >> $GITHUB_STEP_SUMMARY
       
   dr-api-prod:
     name: DR API
