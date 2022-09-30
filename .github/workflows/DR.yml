@@ -27,7 +27,7 @@ jobs:
           echo "- Lets add a second bullet point" >> $GITHUB_STEP_SUMMARY
           echo "- How about a third one?" >> $GITHUB_STEP_SUMMARY
           echo "[DR](../workflows/DR.yml)" >> $GITHUB_STEP_SUMMARY
-          echo "text input $TESTTEXT" >> $GITHUB_STEP_SUMMARY
+          echo "text input ${{ inputs.testtext }}" >> $GITHUB_STEP_SUMMARY
       
   dr-api-prod:
     name: DR API
