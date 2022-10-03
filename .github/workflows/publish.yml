@@ -3,7 +3,7 @@ on:
   workflow_dispatch: 
     
 jobs:
-  build-api:
+  publish-api:
     name: Publish API
     runs-on: ubuntu-latest
 
