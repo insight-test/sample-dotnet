@@ -6,11 +6,9 @@ jobs:
   build-api:
     name: Publish API
     runs-on: ubuntu-latest
-    environment:
-      name: 'Development'
+
     steps:
       - name: Checkout
-
         uses: actions/checkout@v3
 
       - name: 'Publish Step 1'
