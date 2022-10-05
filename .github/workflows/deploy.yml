@@ -1,0 +1,23 @@
+name: 'GitOps Deploy'
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        type: environment
+        required: true
+        
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Deploy ${{ inputs.environment }}
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Build Step 1"

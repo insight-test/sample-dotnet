@@ -1,0 +1,23 @@
+name: 'GitOps Publish'
+on:
+  workflow_dispatch: 
+  push:
+    branches-ignore:
+      - main
+      - 'release/**'
+
+    
+jobs:
+  publish-api:
+    name: Publish API
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+
+        uses: actions/checkout@v3
+
+      - name: 'Publish Step 1'
+        uses: ./.github/actions/hello
+        with:
+          MOCK_STEP_NAME: "Build Step 1"
