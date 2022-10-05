@@ -1,6 +1,11 @@
 name: 'GitOps Publish'
 on:
   workflow_dispatch: 
+  push:
+    branches-ignore:
+      - main
+      - 'release/**'
+
     
 jobs:
   publish-api:
