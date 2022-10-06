@@ -4,13 +4,13 @@ on:
     inputs:
       environment:
         description: 'Environment'
-        type: ${{ inputs.environment }}
+        type: environment
         required: true
         
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: "Development"
+    environment: ${{ inputs.environment }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
